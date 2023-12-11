@@ -20,6 +20,8 @@ import Modal from '@mui/material/Modal';
 // import AddForm from "./AddForm";
 // import EditForm from "./EditForm";
 import Skeleton from '@mui/material/Skeleton';
+import AddUserForm from "./AddUserForm";
+import EditUserForm from "./EditUserForm";
 
 const style = {
   position: 'absolute',
@@ -116,8 +118,7 @@ const Users = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          {/* <AddForm closeEvent={handleClose} /> */}
-          <h1>Add Form</h1>
+          <AddUserForm closeEvent={handleClose} />
         </Box>
       </Modal>
 
@@ -128,8 +129,7 @@ const Users = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          {/* <EditForm closeEvent={handleEditClose} fid={formId} /> */}
-          <h1>Edit Form</h1>
+          <EditUserForm closeEvent={handleEditClose} fid={formId} />
         </Box>
       </Modal>
     </div>
