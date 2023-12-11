@@ -1,20 +1,20 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
-import MainLayout from "./components/MainLayout";
-import SignUp from "./pages/SignUp";
-import SignInOutContainer from "./containers/SignInOutContainer";
+import SignInOutContainer from './containers/SignInOutContainer';
+import Dashboard from './pages/Dashboard';
+import Bookings from "./pages/Bookings";
+import Users from "./pages/Users";
+import Trains from "./pages/Trains";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<SignInOutContainer />} />
-        {/* <Route path="/sign-up" element={<SignUp />} /> */}
-        <Route path="/admin" element={<MainLayout />}>
-          <Route index element={<Dashboard />} />
-        </Route>
+        <Route path="/" element={<SignInOutContainer />}/>
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/users" element={<Users />} />
+        <Route path="/trains" element={<Trains />} />
+        <Route path="/bookings" element={<Bookings />} />
       </Routes>
     </BrowserRouter>
   );

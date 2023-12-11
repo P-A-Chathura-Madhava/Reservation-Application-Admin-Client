@@ -19,7 +19,7 @@ const SignUp = () => {
   const paperStyle = { padding: 20, width: 300, margin: "0 auto" };
   const headerStyle = { margin: 0 };
   const avatarStyle = { backgroundColor: "#1bbd7e" };
-  const marginTop = { marginTop: 5 };
+  const marginTop = { marginTop: -5 };
 
   return (
     <Grid>
@@ -34,31 +34,39 @@ const SignUp = () => {
           </Typography>
         </Grid>
         <form>
-          <TextField fullWidth label="Name" placeholder="Enter your name" />
-          <TextField fullWidth label="Email" />
-          <TextField fullWidth label="Mobile" />
+          <TextField style={{marginBottom: "12px"}} size="small" fullWidth label="Name" placeholder="Enter your name" />
+          <TextField style={{marginBottom: "12px"}} size="small" fullWidth label="Email" />
+          <TextField style={{marginBottom: "12px"}} size="small" fullWidth label="Mobile" />
           <FormControl component="fieldset" style={marginTop}>
-            <FormLabel component="legend">Gender</FormLabel>
+            <FormLabel component="legend" style={{fontSize: 12}}>Gender</FormLabel>
             <RadioGroup
               aria-label="gender"
               name="gender"
               style={{ display: "initial" }}
             >
               <FormControlLabel
+              style={{marginTop: -10}}
                 value="female"
-                control={<Radio />}
-                label="Female"
+                control={<Radio size="small" />}
+                label={            <Typography sx={{ fontSize: 12 }}>
+                Female
+              </Typography>}
               />
-              <FormControlLabel value="male" control={<Radio />} label="Male" />
+              <FormControlLabel 
+              style={{marginTop: -10}}
+              value="male" control={<Radio size="small" />} label={            <Typography sx={{ fontSize: 12 }}>
+              Male
+            </Typography>} />
             </RadioGroup>
           </FormControl>
-          <TextField fullWidth label="Password" />
-          <TextField fullWidth label="Confirm Password" />
+          <TextField style={{marginBottom: "12px"}} size="small" fullWidth label="Password" />
+          <TextField style={{marginBottom: "12px"}} size="small" fullWidth label="Confirm Password" />
           <FormControlLabel
+            style={{marginTop: -20}}
             control={<Checkbox name="checkbox" />}
             label="I accept the terms and conditions"
           />
-          <Button type="submit" variant="contained" color="primary">
+          <Button fullWidth size="small" type="submit" variant="contained" color="primary">
             Sign Up
           </Button>
         </form>
