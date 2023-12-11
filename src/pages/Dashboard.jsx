@@ -1,10 +1,13 @@
 import React from "react";
 import SideNav from "../components/SideNav";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
+import NavigationBar from "../components/NavigationBar";
 
 const Dashboard = () => {
   return (
     <div>
+      <NavigationBar />
+      <Box height={30} />
       <Box sx={{ display: "flex" }}>
         <SideNav />
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>

@@ -22,6 +22,7 @@ import DirectionsSubwayFilledOutlinedIcon from '@mui/icons-material/DirectionsSu
 import ConfirmationNumberOutlinedIcon from '@mui/icons-material/ConfirmationNumberOutlined';
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import { useNavigate } from 'react-router-dom';
+import { useAppStore } from '../appStore';
 
 const drawerWidth = 240;
 
@@ -74,18 +75,21 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 export default function SideNav() {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(true);
+  // const [open, setOpen] = React.useState(true);
   const navigate = useNavigate();
+  // const updateOpen = useAppStore((state)=>state.updateOpen);
+  const open = useAppStore((state)=>state.dopen);
 
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
+      <Box height={30} />
       <Drawer variant="permanent" open={open}>
-        <DrawerHeader>
+        {/* <DrawerHeader>
           <IconButton onClick={()=>setOpen(!open)}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
-        </DrawerHeader>
+        </DrawerHeader> */}
         <Divider />
         <List>
         <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>navigate("/dashboard")}>
