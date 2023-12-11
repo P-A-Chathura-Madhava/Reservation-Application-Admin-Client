@@ -13,18 +13,18 @@ import {
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Login = () => {
+const Login = ({handleChange}) => {
   const paperStyle = {
     padding: 20,
-    height: "70vh",
-    width: 280,
-    margin: "20px auto",
+    height: "73vh",
+    width: 300,
+    margin: "0 auto",
   };
   const avatarStyle = { backgroundColor: "#1bbd7e" };
   const btnStyle = {margin: "8px 0"};
   return (
     <Grid>
-      <Paper elevation={10} style={paperStyle}>
+      <Paper style={paperStyle}>
         <Grid align="center">
           <Avatar style={avatarStyle}>
             <LockOutlined />
@@ -58,10 +58,10 @@ const Login = () => {
         style={btnStyle}
         >Sign in</Button>
         <Typography>
-          <Link href="#">Forgot Password</Link>
+          <Link href="#" style={{fontSize: "10px"}}>Forgot Password</Link>
         </Typography>        
-        <Typography><p>Do you have an account?</p>
-          <Link to="/sign-up">Sign Up</Link>
+        <Typography><p style={{fontSize: "10px"}}>Do you have an account?</p>
+          <Link onClick={() => handleChange("event", 1)}>Sign Up</Link>
         </Typography>
       </Paper>
     </Grid>
