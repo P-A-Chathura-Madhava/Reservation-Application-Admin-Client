@@ -83,14 +83,14 @@ export default function SideNav() {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <Box height={30} />
+      <Box height={30}/>
       <Drawer variant="permanent" open={open}>
         {/* <DrawerHeader>
           <IconButton onClick={()=>setOpen(!open)}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </DrawerHeader> */}
-        <Divider />
+        <Divider style={{paddingTop: 60}} />
         <List>
         <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>navigate("/dashboard")}>
               <ListItemButton
