@@ -167,7 +167,7 @@ const NavigationBar = () => {
 
   return (
         <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed">
+      <AppBar position="fixed" elevation={0} sx={{backgroundColor: "#ffffff", color: "#2f2f2f"}}>
         <Toolbar>
           <IconButton
             size="large"
