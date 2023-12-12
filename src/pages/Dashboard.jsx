@@ -11,6 +11,8 @@ import CreditCardIcon from '@mui/icons-material/CreditCard';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import AccordionDash from "../components/AccordionDash";
 import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
+import BarChartDash from "../charts/BarChartDash";
+import CountUp from 'react-countup';
 
 const Dashboard = () => {
   return (
@@ -31,7 +33,7 @@ const Dashboard = () => {
                       <CreditCardIcon />
                     </div>
                     <Typography gutterBottom variant="h5" component="div" sx={{color: "#ffffff"}}>
-                      Rs. 50000.00
+                    Rs.<CountUp delay={0.2} end={50000} duration={1.4} />.00
                     </Typography>
                     <Typography gutterBottom variant="body2" component="div" sx={{color: "#ccd1d1"}}>
                     Total Bookings
@@ -44,7 +46,7 @@ const Dashboard = () => {
                       <ShoppingBagIcon />
                     </div>
                     <Typography gutterBottom variant="h5" component="div" sx={{color: "#ffffff"}}>
-                    Rs. 100000.00
+                    Rs.<CountUp delay={0.2} end={100000} duration={1.4} />.00
                     </Typography>
                     <Typography gutterBottom variant="body2" component="div" sx={{color: "#ccd1d1"}}>
                     Total Earnings
@@ -61,7 +63,9 @@ const Dashboard = () => {
                     <StorefrontIcon />
                     </div>
                     <div className="paddingall">
-                    <span className="pricetitle">Rs. 200k</span><br />
+                    <span className="pricetitle">
+                      Rs. <CountUp delay={0.2} end={200} duration={1} />K
+                      </span><br />
                     <span className="pricesubtitle">Total Income</span>
                     </div>
                     </Stack>
@@ -72,7 +76,9 @@ const Dashboard = () => {
                     <PeopleOutlineIcon />
                     </div>
                     <div className="paddingall">
-                    <span className="pricetitle">100</span><br />
+                    <span className="pricetitle">
+                    <CountUp delay={0.6} end={100} duration={2} />
+                      </span><br />
                     <span className="pricesubtitle">Total Trains</span>
                     </div>
                     </Stack>
@@ -85,7 +91,7 @@ const Dashboard = () => {
             <Grid item xs={8}>
             <Card sx={{ height: 60 + "vh" }}>
                   <CardContent>
-
+                    <BarChartDash />
                   </CardContent>
                 </Card>
             </Grid>
