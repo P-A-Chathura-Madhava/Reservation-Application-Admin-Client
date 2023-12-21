@@ -1,24 +1,24 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import userService from "./userService";
+import customerService from "./customerService";
 
 export const getUsers = createAsyncThunk(
-  "user/get-users",
+  "customer/get-customers",
   async (thunkAPI) => {
     try {
-      return await userService.getUsers();
+      return await customerService.getUsers();
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
 const initialState = {
-  users: [],
+  customers: [],
   isError: false,
   isLoading: false,
   isSuccess: false,
   message: "",
 };
-export const userSlice = createSlice({
+export const customerSlice = createSlice({
   name: "users",
   initialState,
   reducers: {},
@@ -31,7 +31,7 @@ export const userSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.users = action.payload;
+        state.customers = action.payload;
       })
       .addCase(getUsers.rejected, (state, action) => {
         state.isLoading = false;
@@ -41,4 +41,4 @@ export const userSlice = createSlice({
       });
   },
 });
-export default userSlice.reducer;
+export default customerSlice.reducer;

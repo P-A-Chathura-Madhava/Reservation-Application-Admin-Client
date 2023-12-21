@@ -1,30 +1,63 @@
-import React from "react";
-import { Chart } from "react-google-charts";
+// import React from "react";
+// import { Chart } from "react-google-charts";
 
-export const data = [
-  ["Year", "Sales", "Expenses", "Profit"],
-  ["2014", 1000, 400, 200],
-  ["2015", 1170, 460, 250],
-  ["2016", 660, 1120, 300],
-  ["2017", 1030, 540, 350],
+// export const data = [
+//   ["Year", "Sales", "Expenses", "Profit"],
+//   ["2014", 1000, 400, 200],
+//   ["2015", 1170, 460, 250],
+//   ["2016", 660, 1120, 300],
+//   ["2017", 1030, 540, 350],
+// ];
+
+// export const options = {
+//   chart: {
+//     title: "Company Performance",
+//     subtitle: "Sales, Expenses, and Profit: 2014-2017",
+//   },
+//   colors: ["rgb(53, 138, 148)", "rgb(37,11,165)", "#188310"],
+// };
+
+// export default function BarChartDash() {
+//   return (
+//     <Chart
+//       chartType="Bar"
+//       width="100%"
+//       height="350px"
+//       data={data}
+//       options={options}
+//     />
+//   );
+// }
+
+import React from "react";
+import { BarChart } from "@mui/x-charts/BarChart";
+
+const uData = [4000, 3000, 2000, 2780, 1890, 2390, 3490];
+const pData = [2400, 1398, 9800, 3908, 4800, 3800, 4300];
+const xLabels = [
+  "Page A",
+  "Page B",
+  "Page C",
+  "Page D",
+  "Page E",
+  "Page F",
+  "Page G",
 ];
 
-export const options = {
-  chart: {
-    title: "Company Performance",
-    subtitle: "Sales, Expenses, and Profit: 2014-2017",
-  },
-  colors: ["rgb(53, 138, 148)", "rgb(37,11,165)", "#188310"],
+const BarChartDash = () => {
+  return (
+    <div className="barChart">
+      <BarChart
+        width={700}
+        height={350}
+        series={[
+          { data: pData, label: "pv", id: "pvId", stack: "total" },
+          { data: uData, label: "uv", id: "uvId", stack: "total" },
+        ]}
+        xAxis={[{ data: xLabels, scaleType: "band" }]}
+      />
+    </div>
+  );
 };
 
-export default function BarChartDash() {
-  return (
-    <Chart
-      chartType="Bar"
-      width="100%"
-      height="350px"
-      data={data}
-      options={options}
-    />
-  );
-}
+export default BarChartDash;

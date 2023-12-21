@@ -24,6 +24,8 @@ import AddUserForm from "./AddUserForm";
 import EditUserForm from "./EditUserForm";
 import AddTrainForm from "./AddTrainForm";
 import EditTrainForm from "./EditTrainForm";
+import { useDispatch, useSelector } from "react-redux";
+import { getTrains } from "../feature/train/trainSlice";
 
 const style = {
   position: 'absolute',
@@ -46,9 +48,20 @@ const row = [
 
 const Trains = () => {
 
+  // get data
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    dispatch(getTrains());
+  }, []);
+
+  const trainState = useSelector(state => state.train.trains)
+  console.log(trainState);
+  // ---------------
+
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [rows, setRows] = useState(row);
+  // const [rows, setRows] = useState(row);
+  const [rows, setRows] = useState(trainState);
 
   // // modal
   const [open, setOpen] = useState(false);
@@ -207,13 +220,19 @@ const Trains = () => {
                   align="left"
                   style={{ minWidth: "100px" }}
                 >
-                  E-Mail
+                  From
                 </TableCell>
                 <TableCell
                   align="left"
                   style={{ minWidth: "100px" }}
                 >
-                  Mobile
+                  To
+                </TableCell>
+                <TableCell
+                  align="left"
+                  style={{ minWidth: "100px" }}
+                >
+                  Seats
                 </TableCell>
                 <TableCell
                   align="left"
@@ -236,13 +255,13 @@ const Trains = () => {
                           {row.name}
                         </TableCell>
                         <TableCell key={row.id} align="left">
-                          {row.route}
+                          {row.from}
                         </TableCell>
                         <TableCell key={row.id} align="left">
-                          {row.classes}
+                          {row.to}
                         </TableCell>
                         <TableCell key={row.id} align="left">
-                          {row.seats}
+                          {row.seat}
                         </TableCell>
                         <TableCell key={row.id} align="left">
                           <Stack spacing={2} direction="row">

@@ -22,10 +22,9 @@ import Modal from '@mui/material/Modal';
 import Skeleton from '@mui/material/Skeleton';
 import AddUserForm from "./AddUserForm";
 import EditUserForm from "./EditUserForm";
-import BookTrain from "./BookTrain";
-import EditBookingForm from "./EditBookingForm";
+
 import { useDispatch, useSelector } from "react-redux";
-import { getReservations } from "../feature/reservations/reservationSlice";
+import { getUsers } from "../feature/customers/customerSlice";
 
 const style = {
   position: 'absolute',
@@ -40,26 +39,44 @@ const style = {
 };
 
 const row = [
-  {firstName: "Kasun", lastName: "Sampath", address: "Bandaragama", city: "Kalutara", state: "Western Province", pincode: "12530"},
-  {firstName: "Nuwan", lastName: "Gunawardane", address: "Panadura", city: "Kalutara", state: "Western Province", pincode: "10244"},
-  {firstName: "Gimhan", lastName: "Rashmika", address: "Horana", city: "Kalutara", state: "Western Province", pincode: "24124"},
-  {firstName: "Dasun", lastName: "Nadeesha", address: "Colombo", city: "Colombo", state: "Western Province", pincode: "42134"},
+  {name: "Kasun", email: "kasun@gmail.com", mobile: "077-1234546"},
+  {name: "Nuwan", email: "nuwan@gmail.com", mobile: "071-1234546"},
+  {name: "Gimhan", email: "gimhan@gmail.com", mobile: "072-1234546"},
+  {name: "Dasun", email: "dasun@gmail.com", mobile: "076-1234546"}
 ];
 
-const Bookings = () => {
-  // Manage Data
-  const dispatch = useDispatch();
-  useEffect(()=>{
-    dispatch(getReservations());
-  },[]);
+const Users = () => {
+  // Using redux to manage data
 
-  const reservationState = useSelector(state => state.reservation.reservations)
-  console.log(reservationState);
-  // -----------------------
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    dispatch(getUsers());
+  }, []);
+  
+  const customerstate = useSelector((state) => state.customer.customers);
+  // console.log(customerstate);
+
+  const data1 = [];
+  for (let i = 0; i < customerstate.length; i++) {
+    if (customerstate[i].role === "user") {
+      data1.push({
+        key: i + 1,
+        name: customerstate[i].name,
+        email: customerstate[i].email,
+        mobile: customerstate[i].mobile,
+      });
+    }
+  }
+
+  // console.log("data",data1);
+
+  // -----------------------------
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [rows, setRows] = useState(row);
+  // const [rows, setRows] = useState(row);
+  const [rows, setRows] = useState(data1);
 
   // // modal
   const [open, setOpen] = useState(false);
@@ -105,9 +122,9 @@ const Bookings = () => {
     // }
   }
 
-  const editBooking = (firstName, lastName, address, city, state, pincode) => {
+  const editUser = (name, email, mobile) => {
     const data = {
-      firstName, lastName, address, city, state, pincode
+      name, email, mobile
     };
     setFormId(data);
     handleEditOpen();
@@ -120,7 +137,7 @@ const Bookings = () => {
       <Box sx={{ display: "flex" }}>
         <SideNav />
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-          <h1>Bookings</h1>
+          <h1>Users</h1>
 
 {/* ------------------------------------------------------------- */}
 <div>
@@ -131,7 +148,7 @@ const Bookings = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <BookTrain closeEvent={handleClose} />
+          <AddUserForm closeEvent={handleClose} />
         </Box>
       </Modal>
 
@@ -142,7 +159,7 @@ const Bookings = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <EditBookingForm closeEvent={handleEditClose} fid={formId} />
+          <EditUserForm closeEvent={handleEditClose} fid={formId} />
         </Box>
       </Modal>
     </div>
@@ -153,7 +170,7 @@ const Bookings = () => {
         component="div"
         sx={{ padding: "20px" }}
       >
-        Booking List
+        Users List
       </Typography>
       <Divider />
 
@@ -173,7 +190,7 @@ const Bookings = () => {
         <Autocomplete
         disablePortal
         id="combo-box-demo"
-        options={row.map((option) => option.city)}
+        options={row.map((option) => option.name)}
         sx={{width: 300}}
         size="small"
         onChange={(e, v) => filterData(v)}
@@ -206,37 +223,19 @@ const Bookings = () => {
                   align="left"
                   style={{ minWidth: "100px" }}
                 >
-                  First name
+                  Name
                 </TableCell>
                 <TableCell
                   align="left"
                   style={{ minWidth: "100px" }}
                 >
-                  Last Name
+                  E-Mail
                 </TableCell>
                 <TableCell
                   align="left"
                   style={{ minWidth: "100px" }}
                 >
-                  Address
-                </TableCell>
-                <TableCell
-                  align="left"
-                  style={{ minWidth: "100px" }}
-                >
-                  City
-                </TableCell>
-                <TableCell
-                  align="left"
-                  style={{ minWidth: "100px" }}
-                >
-                  State
-                </TableCell>
-                <TableCell
-                  align="left"
-                  style={{ minWidth: "100px" }}
-                >
-                  Pin Code
+                  Mobile
                 </TableCell>
                 <TableCell
                   align="left"
@@ -253,22 +252,13 @@ const Bookings = () => {
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1}>
                         <TableCell key={row.id} align="left">
-                          {row.firstName}
+                          {row.name}
                         </TableCell>
                         <TableCell key={row.id} align="left">
-                          {row.lastName}
+                          {row.email}
                         </TableCell>
                         <TableCell key={row.id} align="left">
-                          {row.address}
-                        </TableCell>
-                        <TableCell key={row.id} align="left">
-                          {row.city}
-                        </TableCell>
-                        <TableCell key={row.id} align="left">
-                          {row.state}
-                        </TableCell>
-                        <TableCell key={row.id} align="left">
-                          {row.pincode}
+                          {row.mobile}
                         </TableCell>
                         <TableCell key={row.id} align="left">
                           <Stack spacing={2} direction="row">
@@ -279,7 +269,7 @@ const Bookings = () => {
                               cursor: "pointer"
                             }}
                             className="curson-pointer"
-                            onClick={()=>editBooking(row.firstName, row.lastName, row.address, row.city, row.state, row.pincode)}
+                            onClick={()=>editUser(row.name, row.email, row.mobile)}
                             />
                             <DeleteIcon 
                             style={{
@@ -316,4 +306,4 @@ const Bookings = () => {
   );
 };
 
-export default Bookings;
+export default Users;
