@@ -8,10 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { createTrain } from "../feature/train/trainSlice";
 import { useEffect } from "react";
 
-// const createTrain = (number, name, route, classes, seats) => {
-//   console.log(number, name, route, classes, seats);
-// };
-
 let schema = yup.object().shape({
   number: yup
     .number()
@@ -36,7 +32,6 @@ const AddTrainForm = ({ closeEvent }) => {
   }, [isSuccess, isError, isLoading, createdTrain]);
 
   const formik = useFormik({
-    // enableReinitialize: true,
     initialValues: {
       number: 0,
       name: "",
@@ -48,9 +43,6 @@ const AddTrainForm = ({ closeEvent }) => {
     onSubmit: (values) => {
       dispatch(createTrain(values));
       formik.resetForm();
-      // setTimeout(()=>{
-      //   console.log(newTrain);
-      // }, 300);
     },
   });
 
