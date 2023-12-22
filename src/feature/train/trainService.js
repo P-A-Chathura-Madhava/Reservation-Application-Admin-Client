@@ -23,8 +23,15 @@ const getTrains = async () => {
   return response.data;
 };
 
+const createTrain = async (train) => {
+  // console.log("Working", train);
+  const response = await axios.post(`${base_url}train/`, train, config);
+  return response.data;
+}
+
 const trainService = {
   getTrains,
+  createTrain
 };
 
 export default trainService;

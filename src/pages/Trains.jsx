@@ -109,7 +109,7 @@ const Trains = () => {
             component="div"
             sx={{ padding: "20px" }}
           >
-            Users List
+            Manage Trains
           </Typography>
           <Divider />
           <Box height={10} />

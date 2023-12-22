@@ -11,6 +11,17 @@ export const getTrains = createAsyncThunk(
     }
   }
 );
+
+export const createTrain = createAsyncThunk(
+  "train/create-train",
+  async (trainData, thunkAPI) => {
+    try {
+      return await trainService.createTrain(trainData);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+)
 const initialState = {
   trains: [],
   isError: false,
@@ -19,7 +30,7 @@ const initialState = {
   message: "",
 };
 export const trainSlice = createSlice({
-  name: "users",
+  name: "trains",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -34,6 +45,21 @@ export const trainSlice = createSlice({
         state.trains = action.payload;
       })
       .addCase(getTrains.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+      })
+      .addCase(createTrain.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(createTrain.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.createdTrain = action.payload;
+      })
+      .addCase(createTrain.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
