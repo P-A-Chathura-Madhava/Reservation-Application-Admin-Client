@@ -10,8 +10,8 @@ const createTrain = (number, name, route, classes, seats) => {
 const AddTrainForm = ({ closeEvent }) => {
   const [number, setNumber] = useState("");
   const [name, setName] = useState("");
-  const [route, setRoute] = useState("");
-  const [trainClass, setTrainClass] = useState("");
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
   const [seats, setSeats] = useState("");
 
   return (
@@ -53,29 +53,29 @@ const AddTrainForm = ({ closeEvent }) => {
         <Grid item xs={12}>
           <TextField
             id="outlined-basic"
-            label="Mobile"
+            label="From"
             variant="outlined"
             size="small"
-            value={route}
-            onChange={(e) => setRoute(e.target.value)}
+            value={from}
+            onChange={(e) => setFrom(e.target.value)}
             sx={{ minWidth: "100%" }}
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
             id="outlined-basic"
-            label="Mobile"
+            label="To"
             variant="outlined"
             size="small"
-            value={trainClass}
-            onChange={(e) => setTrainClass(e.target.value)}
+            value={to}
+            onChange={(e) => setTo(e.target.value)}
             sx={{ minWidth: "100%" }}
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
             id="outlined-basic"
-            label="Mobile"
+            label="Seats"
             variant="outlined"
             size="small"
             value={seats}
@@ -87,7 +87,7 @@ const AddTrainForm = ({ closeEvent }) => {
           <Typography variant="h5" align="center">
             <Button
               variant="contained"
-              onClick={createTrain(number, name, route, trainClass, seats)}
+              onClick={createTrain(number, name, from, to, seats)}
             >
               Submit
             </Button>

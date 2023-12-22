@@ -10,17 +10,17 @@ const createTrain = (number, name, route, trainClass, seats) => {
 const EditTrainForm = ({fid, closeEvent}) => {
     const [number, setNumber] = useState('');
     const [name, setName] = useState('');
-    const [route, setRoute] = useState('')
-    const [trainClass, setTrainClass] = useState('');
+    const [from, setFrom] = useState('')
+    const [to, setTo] = useState('')
     const [seats, setSeats] = useState();
 
     useEffect (()=>{
         console.log(fid);
         setNumber(fid.number);
         setName(fid.name);
-        setRoute(fid.route);
-        setTrainClass(fid.trainClass);
-        setSeats(fid.seats);
+        setFrom(fid.from);
+        setTo(fid.to);
+        setSeats(fid.seat);
     },[])
 
   return (
@@ -49,15 +49,15 @@ const EditTrainForm = ({fid, closeEvent}) => {
             sx={{minWidth: "100%"}} />
             </Grid>
             <Grid item xs={12}>
-            <TextField id="outlined-basic" label="Route" variant="outlined" size='small'
-            value={route}
-            onChange={(e)=>setRoute(e.target.value)}
+            <TextField id="outlined-basic" label="From" variant="outlined" size='small'
+            value={from}
+            onChange={(e)=>setFrom(e.target.value)}
             sx={{minWidth: "100%"}} />
             </Grid>
             <Grid item xs={12}>
-            <TextField id="outlined-basic" label="Classes" variant="outlined" size='small'
-            value={trainClass}
-            onChange={(e)=>setTrainClass(e.target.value)}
+            <TextField id="outlined-basic" label="To" variant="outlined" size='small'
+            value={to}
+            onChange={(e)=>setTo(e.target.value)}
             sx={{minWidth: "100%"}} />
             </Grid>
             <Grid item xs={12}>
@@ -68,7 +68,7 @@ const EditTrainForm = ({fid, closeEvent}) => {
             </Grid>
             <Grid item xs={12}>
                 <Typography variant='h5' align='center'>
-                    <Button variant='contained' onClick={createTrain(number, name, route, trainClass, seats)}>
+                    <Button variant='contained' onClick={createTrain(number, name, from, to, seats)}>
                         Submit
                     </Button>
                 </Typography>
