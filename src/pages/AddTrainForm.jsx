@@ -5,8 +5,9 @@ import TextField from "@mui/material/TextField";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { createTrain } from "../feature/train/trainSlice";
+import { createTrain, resetState } from "../feature/train/trainSlice";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 let schema = yup.object().shape({
   number: yup
@@ -43,6 +44,10 @@ const AddTrainForm = ({ closeEvent }) => {
     onSubmit: (values) => {
       dispatch(createTrain(values));
       formik.resetForm();
+      setTimeout(() => {
+        // to stop getting train added successfully message again and again
+        dispatch(resetState());
+      }, 3000);
     },
   });
 

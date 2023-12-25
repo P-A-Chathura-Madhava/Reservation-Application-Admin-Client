@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import trainService from "./trainService";
 
 export const getTrains = createAsyncThunk(
@@ -21,7 +21,34 @@ export const createTrain = createAsyncThunk(
       return thunkAPI.rejectWithValue(error);
     }
   }
-)
+);
+
+export const updateTrain = createAsyncThunk(
+  "train/update-train",
+  async (trainData, thunkAPI) => {
+    try {
+      return await trainService.updateTrain(trainData);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const deleteATrain = createAsyncThunk(
+  "train/delete-train",
+  async (id, thunkAPI) => {
+    // console.log(id);
+    try {
+      return await trainService.deleteTrain(id);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+// to stop getting train added message again and again
+export const resetState = createAction("Reset_all");
+
 const initialState = {
   trains: [],
   isError: false,
@@ -64,7 +91,38 @@ export const trainSlice = createSlice({
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;
-      });
+      })
+      .addCase(updateTrain.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateTrain.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.updatedTrain = action.payload;
+      })
+      .addCase(updateTrain.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+      })
+      .addCase(deleteATrain.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteATrain.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.deletedTrain = action.payload;
+      })
+      .addCase(deleteATrain.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+      })
+      .addCase(resetState, () => initialState);
   },
 });
 export default trainSlice.reducer;

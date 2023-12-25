@@ -18,7 +18,7 @@ const config = {
 // Attaching the token ends here
 
 const getTrains = async () => {
-  console.log(getTokenFromLocalStorage.token);
+  // console.log(getTokenFromLocalStorage.token);
   const response = await axios.get(`${base_url}train/`, config);
   return response.data;
 };
@@ -29,9 +29,23 @@ const createTrain = async (train) => {
   return response.data;
 }
 
+const updateTrain = async (newTrain) => {
+  // console.log("Working", newTrain);
+  const response = await axios.put(`${base_url}train/${newTrain.id}`, newTrain, config);
+  return response.data;
+}
+
+const deleteTrain = async (id) => {
+  // console.log("Working", id);
+  const response = await axios.delete(`${base_url}train/${id}`, config);
+  return response.data;
+}
+
 const trainService = {
   getTrains,
-  createTrain
+  createTrain,
+  updateTrain,
+  deleteTrain
 };
 
 export default trainService;

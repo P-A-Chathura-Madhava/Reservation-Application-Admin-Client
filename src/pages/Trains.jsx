@@ -16,58 +16,86 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddTrainForm from "./AddTrainForm";
 import EditTrainForm from "./EditTrainForm";
-import { getTrains } from "../feature/train/trainSlice";
+import { getTrains, resetState, deleteATrain } from "../feature/train/trainSlice";
 
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
   width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
+  bgcolor: "background.paper",
+  border: "2px solid #000",
   boxShadow: 24,
   p: 4,
 };
 
 const Trains = () => {
+  // for modals
+  const [open, setOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
+  const [formId, setFormId] = useState("");
+  const handleOpen = () => setOpen(true);
+  const handleEditOpen = () => setEditOpen(true);
+  const handleClose = () => {
+    setOpen(false);
+    dispatch(getTrains());
+  };
+  const handleEditClose = () => setEditOpen(false);
+  // modals end here
 
-    // for modals
-    const [open, setOpen] = useState(false);
-    const [editOpen, setEditOpen] = useState(false);
-    const [formId, setFormId] = useState("");
-    const handleOpen = () => setOpen(true);
-    const handleEditOpen = () => setEditOpen(true);
-    const handleClose = () => setOpen(false);
-    const handleEditClose = () => setEditOpen(false);  
-    // modals end here
+  const dispatch = useDispatch();
+  const trainState = useSelector((state) => state.train.trains);
+  const removedTrain = useSelector((state) => state.train);
+  const { isSuccess, isError, isLoading, deletedTrain } = removedTrain;
 
-    const dispatch = useDispatch();
-    useEffect(() => {
-      dispatch(getTrains());
-    }, []);
-    const trainState = useSelector((state) => state.train.trains);
-    console.log(trainState);
-  
-    const rows = [];
-    for (let i = 0; i < trainState.length; i++) {
-        rows.push({
-          key: i + 1,
-          number: trainState[i].number,
-          name: trainState[i].name,
-          from: trainState[i].from,
-          to: trainState[i].to,
-          seat: trainState[i].seat,
-      })
-    }
+  useEffect(() => {
+    dispatch(getTrains());
+  }, [trainState]);
+  // console.log(trainState);
 
-    const editTrain = (number, name, from, to, seat) => {
-      const data = {
-        number, name, from, to, seat
-      };
-      setFormId(data);
-      handleEditOpen();
-    }
+  // useEffect(() => {
+  //   if (isSuccess && deletedTrain) {
+  //     console.log("Train Deleted Successfullly!");
+  //   }
+  // }, [isSuccess, isError, isLoading, deletedTrain]);
+
+  const rows = [];
+  for (let i = 0; i < trainState.length; i++) {
+    rows.push({
+      key: i + 1,
+      id: trainState[i]._id,
+      number: trainState[i].number,
+      name: trainState[i].name,
+      from: trainState[i].from,
+      to: trainState[i].to,
+      seats: trainState[i].seats,
+    });
+  }
+
+  const editTrain = (number, name, from, to, seats, id) => {
+    const data = {
+      id,
+      number,
+      name,
+      from,
+      to,
+      seats,
+    };
+    setFormId(data);
+    handleEditOpen();
+  };
+
+  const deleteTrain = (id) => {
+    // alert(id);
+    dispatch(deleteATrain(id));
+    setTimeout(()=>{
+      if (isSuccess) {
+        console.log("Train Deleted");
+        // console.log(deletedTrain);
+      }
+    }, 300)
+  }
 
   return (
     <div>
@@ -76,7 +104,6 @@ const Trains = () => {
       <Box sx={{ display: "flex" }}>
         <SideNav />
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-
           {/* Modals */}
 
           <Modal
@@ -149,7 +176,7 @@ const Trains = () => {
                     <TableCell align="left">{row.name}</TableCell>
                     <TableCell align="left">{row.from}</TableCell>
                     <TableCell align="left">{row.to}</TableCell>
-                    <TableCell align="left">{row.seat}</TableCell>
+                    <TableCell align="left">{row.seats}</TableCell>
                     <TableCell align="left">
                       <Stack spacing={2} direction="row">
                         <EditIcon
@@ -159,7 +186,16 @@ const Trains = () => {
                             cursor: "pointer",
                           }}
                           className="curson-pointer"
-                          onClick={()=>editTrain(row.number, row.name, row.from, row.to, row.seat)}
+                          onClick={() =>
+                            editTrain(
+                              row.number,
+                              row.name,
+                              row.from,
+                              row.to,
+                              row.seats,
+                              row.id
+                            )
+                          }
                         />
                         <DeleteIcon
                           style={{
@@ -168,7 +204,7 @@ const Trains = () => {
                             cursor: "pointer",
                           }}
                           className="curson-pointer"
-                          // onClick={()=>deleteUser(row.id)}
+                          onClick={()=>deleteTrain(row.id)}
                         />
                       </Stack>
                     </TableCell>
