@@ -14,12 +14,40 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
+import { useFormik } from "formik";
+import * as yup from "yup";
+
+const signupSchema = yup.object({
+  name: yup.string().required("Required"),
+  email: yup
+    .string()
+    .email("Email should be valid")
+    .required("Required"),
+  mobile: yup.string().required("Required"),
+  password: yup.string().required("Required"),
+});
 
 const SignUp = () => {
   const paperStyle = { padding: 20, width: 300, margin: "0 auto" };
   const headerStyle = { margin: 0 };
   const avatarStyle = { backgroundColor: "#1bbd7e" };
   const marginTop = { marginTop: -5 };
+
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      email: "",
+      mobile: "",
+      password: "",
+    },
+    validationSchema: signupSchema,
+    onSubmit: (values) => {
+      console.log(values);
+        // console.log(values.email);
+        // console.log(values.password);
+      // dispatch(loginUser(values));
+    },
+  });
 
   return (
     <Grid>
@@ -33,10 +61,50 @@ const SignUp = () => {
             Please fill this form to create an account
           </Typography>
         </Grid>
-        <form>
-          <TextField style={{marginBottom: "12px"}} size="small" fullWidth label="Name" placeholder="Enter your name" />
-          <TextField style={{marginBottom: "12px"}} size="small" fullWidth label="Email" />
-          <TextField style={{marginBottom: "12px"}} size="small" fullWidth label="Mobile" />
+        <form onSubmit={formik.handleSubmit}>
+          <TextField 
+          // style={{marginBottom: "12px"}} 
+          size="small" 
+          name="name"
+          fullWidth 
+          label="Name" 
+          placeholder="Enter your name" 
+          value={formik.values.name}
+          onChange={formik.handleChange("name")}
+          onBlur={formik.handleBlur("name")}
+          />
+          <div className="error mb-2">
+            {formik.touched.name && formik.errors.name}
+          </div>
+          <div style={{height: "10px"}}></div>
+          <TextField 
+          // style={{marginBottom: "12px"}} 
+          size="small" 
+          name="email"
+          fullWidth 
+          label="Email" 
+          value={formik.values.email}
+          onChange={formik.handleChange("email")}
+          onBlur={formik.handleBlur("email")}
+          />
+          <div className="error mb-2">
+            {formik.touched.email && formik.errors.email}
+          </div>
+          <div style={{height: "10px"}}></div>
+          <TextField 
+          // style={{marginBottom: "12px"}} 
+          size="small" 
+          name="mobile"
+          fullWidth 
+          label="Mobile" 
+          value={formik.values.mobile}
+          onChange={formik.handleChange("mobile")}
+          onBlur={formik.handleBlur("mobile")}
+          />
+          <div className="error mb-2">
+            {formik.touched.mobile && formik.errors.mobile}
+          </div>
+          <div style={{height: "10px"}}></div>
           <FormControl component="fieldset" style={marginTop}>
             <FormLabel component="legend" style={{fontSize: 12}}>Gender</FormLabel>
             <RadioGroup
@@ -59,7 +127,21 @@ const SignUp = () => {
             </Typography>} />
             </RadioGroup>
           </FormControl>
-          <TextField style={{marginBottom: "12px"}} size="small" fullWidth label="Password" />
+          <TextField 
+          // style={{marginBottom: "12px"}} 
+          size="small"
+          name="password" 
+          fullWidth 
+          label="Password" 
+          type="password"
+          value={formik.values.password}
+          onChange={formik.handleChange("password")}
+          onBlur={formik.handleBlur("password")}
+          />
+          <div className="error mb-2">
+            {formik.touched.password && formik.errors.password}
+          </div>
+          <div style={{height: "10px"}}></div>
           <TextField style={{marginBottom: "12px"}} size="small" fullWidth label="Confirm Password" />
           <FormControlLabel
             style={{marginTop: -20}}
