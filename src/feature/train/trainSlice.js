@@ -47,7 +47,7 @@ export const deleteATrain = createAsyncThunk(
 );
 
 // to stop getting train added message again and again
-export const resetState = createAction("Reset_all");
+export const resetState = createAction("RevertAll");
 
 const initialState = {
   trains: [],

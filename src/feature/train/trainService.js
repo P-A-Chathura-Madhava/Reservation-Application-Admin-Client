@@ -21,7 +21,7 @@ const getTrains = async () => {
   console.log("get trains");
   // console.log(getTokenFromLocalStorage.token);
   const response = await axios.get(`${base_url}train/`, config);
-  console.log(response);
+  // console.log(response);
   return response.data;
 };
 
