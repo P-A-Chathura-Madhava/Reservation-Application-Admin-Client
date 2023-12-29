@@ -39,27 +39,52 @@ const style = {
   p: 4,
 };
 
-const row = [
-  {firstName: "Kasun", lastName: "Sampath", address: "Bandaragama", city: "Kalutara", state: "Western Province", pincode: "12530"},
-  {firstName: "Nuwan", lastName: "Gunawardane", address: "Panadura", city: "Kalutara", state: "Western Province", pincode: "10244"},
-  {firstName: "Gimhan", lastName: "Rashmika", address: "Horana", city: "Kalutara", state: "Western Province", pincode: "24124"},
-  {firstName: "Dasun", lastName: "Nadeesha", address: "Colombo", city: "Colombo", state: "Western Province", pincode: "42134"},
-];
+// const row = [
+//   {firstName: "Kasun", lastName: "Sampath", address: "Bandaragama", city: "Kalutara", state: "Western Province", pincode: "12530"},
+//   {firstName: "Nuwan", lastName: "Gunawardane", address: "Panadura", city: "Kalutara", state: "Western Province", pincode: "10244"},
+//   {firstName: "Gimhan", lastName: "Rashmika", address: "Horana", city: "Kalutara", state: "Western Province", pincode: "24124"},
+//   {firstName: "Dasun", lastName: "Nadeesha", address: "Colombo", city: "Colombo", state: "Western Province", pincode: "42134"},
+// ];
+
+
 
 const Bookings = () => {
-  // Manage Data
+
   const dispatch = useDispatch();
+  const reservationState = useSelector(state=>state.reservation.reservations)
+  console.log(reservationState);
+
   useEffect(()=>{
     dispatch(getReservations());
-  },[]);
+  }, [])
 
-  const reservationState = useSelector(state => state.reservation.reservations)
-  console.log(reservationState);
+  const rows = [];
+  for (let i = 0; i < reservationState.length; i++) {
+    rows.push({
+      key: i + 1,
+      id: reservationState[i]._id,
+      firstname: reservationState[i].ticketInfo.firstName,
+      lastname: reservationState[i].ticketInfo.lastName,
+      address: reservationState[i].ticketInfo.address,
+      city: reservationState[i].ticketInfo.city,
+      state: reservationState[i].ticketInfo.state,
+      pincode: reservationState[i].ticketInfo.pincode,
+    });
+  }
+
+  // Manage Data
+  // const dispatch = useDispatch();
+  // useEffect(()=>{
+  //   dispatch(getReservations());
+  // },[]);
+
+  // const reservationState = useSelector(state => state.reservation.reservations)
+  // console.log(reservationState);
   // -----------------------
 
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [rows, setRows] = useState(row);
+  // const [page, setPage] = useState(0);
+  // const [rowsPerPage, setRowsPerPage] = useState(5);
+  // const [rows, setRows] = useState(row);
 
   // // modal
   const [open, setOpen] = useState(false);
@@ -70,14 +95,14 @@ const Bookings = () => {
   const handleClose = () => setOpen(false);
   const handleEditClose = () => setEditOpen(false);  
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
+  // const handleChangePage = (event, newPage) => {
+  //   setPage(newPage);
+  // };
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
+  // const handleChangeRowsPerPage = (event) => {
+  //   setRowsPerPage(+event.target.value);
+  //   setPage(0);
+  // };
 
   const deleteUser = (id) => {
     Swal.fire({
@@ -97,13 +122,13 @@ const Bookings = () => {
     })
   }
 
-  const filterData = (v) => {
+  // const filterData = (v) => {
     // if (v) {
     //   setRows([v]);
     // }else {
     //   setRows([]);
     // }
-  }
+  // }
 
   const editBooking = (firstName, lastName, address, city, state, pincode) => {
     const data = {
@@ -120,7 +145,6 @@ const Bookings = () => {
       <Box sx={{ display: "flex" }}>
         <SideNav />
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-          <h1>Bookings</h1>
 
 {/* ------------------------------------------------------------- */}
 <div>
@@ -153,13 +177,13 @@ const Bookings = () => {
         component="div"
         sx={{ padding: "20px" }}
       >
-        Booking List
+        Reservations List
       </Typography>
       <Divider />
 
       <Box height={10}/>
-      <Stack direction="row" spacing={2} className="my-2 mb-2">
-        {/* <Autocomplete 
+      {/* <Stack direction="row" spacing={2} className="my-2 mb-2">
+        <Autocomplete 
         disablePortal
         id="combo-box-demo"
         options={row}
@@ -169,14 +193,14 @@ const Bookings = () => {
         renderInput={(params) => {
           <TextField {...params} size="small" label="Search Users"/>
         }}
-        /> */}
+        />
         <Autocomplete
         disablePortal
         id="combo-box-demo"
-        options={row.map((option) => option.city)}
+        // options={row.map((option) => option.city)}
         sx={{width: 300}}
         size="small"
-        onChange={(e, v) => filterData(v)}
+        // onChange={(e, v) => filterData(v)}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -196,7 +220,7 @@ const Bookings = () => {
         <Button variant="contained" endIcon={<AddCircle />} onClick={handleOpen}>
           Add
         </Button>
-      </Stack>
+      </Stack> */}
 
       <TableContainer sx={{ maxHeight: 440 }}>
         <Table stickyHeader aria-label="sticky table">
@@ -248,29 +272,29 @@ const Bookings = () => {
           </TableHead>
           <TableBody>
             {rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1}>
-                        <TableCell key={row.id} align="left">
-                          {row.firstName}
+                  <TableRow key={row.id} hover role="checkbox" tabIndex={-1}>
+                        <TableCell align="left">
+                          {row.firstname}
                         </TableCell>
-                        <TableCell key={row.id} align="left">
-                          {row.lastName}
+                        <TableCell align="left">
+                          {row.lastname}
                         </TableCell>
-                        <TableCell key={row.id} align="left">
+                        <TableCell align="left">
                           {row.address}
                         </TableCell>
-                        <TableCell key={row.id} align="left">
+                        <TableCell align="left">
                           {row.city}
                         </TableCell>
-                        <TableCell key={row.id} align="left">
+                        <TableCell align="left">
                           {row.state}
                         </TableCell>
-                        <TableCell key={row.id} align="left">
+                        <TableCell align="left">
                           {row.pincode}
                         </TableCell>
-                        <TableCell key={row.id} align="left">
+                        <TableCell align="left">
                           <Stack spacing={2} direction="row">
                             <EditIcon 
                             style={{
@@ -287,7 +311,7 @@ const Bookings = () => {
                               color: "darkred",
                               cursor: "pointer"
                             }}
-                            // className="curson-pointer"
+                            className="curson-pointer"
                             onClick={()=>deleteUser(row.id)}
                             />
                           </Stack>
@@ -298,7 +322,7 @@ const Bookings = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <TablePagination
+      {/* <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
         count={rows.length}
@@ -306,7 +330,7 @@ const Bookings = () => {
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
-      />
+      /> */}
     </Paper>
 {/* ------------------------------------------------------------- */}
 
