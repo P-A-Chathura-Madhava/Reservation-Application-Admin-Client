@@ -116,6 +116,7 @@ const Bookings = () => {
     }).then ((result) => {
       if (result.value) {
         setTimeout(()=>{
+          dispatch()
           Swal.fire("Deleted", "Your file has been deleted", "success");
         }, 200)
       }
@@ -262,12 +263,12 @@ const Bookings = () => {
                 >
                   Pin Code
                 </TableCell>
-                <TableCell
+                {/* <TableCell
                   align="left"
                   style={{ minWidth: "100px" }}
                 >
                   Action
-                </TableCell>
+                </TableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -294,7 +295,7 @@ const Bookings = () => {
                         <TableCell align="left">
                           {row.pincode}
                         </TableCell>
-                        <TableCell align="left">
+                        {/* <TableCell align="left">
                           <Stack spacing={2} direction="row">
                             <EditIcon 
                             style={{
@@ -315,7 +316,7 @@ const Bookings = () => {
                             onClick={()=>deleteUser(row.id)}
                             />
                           </Stack>
-                        </TableCell>
+                        </TableCell> */}
                   </TableRow>
                 );
               })}

@@ -90,6 +90,11 @@ const NavigationBar = () => {
     const handleMobileMenuOpen = (event) => {
       setMobileMoreAnchorEl(event.currentTarget);
     };
+
+    const handleLogout = () => {
+      localStorage.clear();
+      window.location.reload();
+    };
   
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
@@ -109,7 +114,7 @@ const NavigationBar = () => {
         onClose={handleMenuClose}
       >
         <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-        <MenuItem onClick={handleMenuClose}>Sign Out</MenuItem>
+        <MenuItem onClick={handleLogout}>Sign Out</MenuItem>
       </Menu>
     );
   

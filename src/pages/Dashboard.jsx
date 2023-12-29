@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SideNav from "../components/SideNav";
 import { Box, Typography } from "@mui/material";
 import NavigationBar from "../components/NavigationBar";
@@ -13,8 +13,17 @@ import AccordionDash from "../components/AccordionDash";
 import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 import BarChartDash from "../charts/BarChartDash";
 import CountUp from 'react-countup';
+import { useDispatch, useSelector } from "react-redux";
+import { getTrains } from "../feature/train/trainSlice";
 
 const Dashboard = () => {
+  const dispatch = useDispatch();
+  const trainState = useSelector(state=>state.train.trains);
+  console.log(trainState.length);
+
+  useEffect(()=>{
+    dispatch(getTrains());
+  }, [])
   return (
     <div>
       <div className="bgcolor">
@@ -23,7 +32,6 @@ const Dashboard = () => {
       <Box sx={{ display: "flex" }}>
         <SideNav />
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-          <h1>Dashboard</h1>
           <Grid container spacing={2}>
             <Grid item xs={8}>
               <Stack spacing={2} direction="row">
@@ -77,7 +85,7 @@ const Dashboard = () => {
                     </div>
                     <div className="paddingall">
                     <span className="pricetitle">
-                    <CountUp delay={0.6} end={100} duration={2} />
+                    <CountUp delay={0.6} end={trainState.length} duration={2} />
                       </span><br />
                     <span className="pricesubtitle">Total Trains</span>
                     </div>

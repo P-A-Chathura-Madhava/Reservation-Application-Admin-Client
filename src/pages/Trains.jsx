@@ -21,6 +21,7 @@ import {
   resetState,
   deleteATrain,
 } from "../feature/train/trainSlice";
+import Swal from 'sweetalert2';
 
 const style = {
   position: "absolute",
@@ -86,14 +87,28 @@ const Trains = () => {
   };
 
   const deleteTrain = (id) => {
-    dispatch(deleteATrain(id));
-    setTimeout(() => {
-      if (isSuccess) {
-        console.log("Train Deleted");
-        dispatch(resetState());
-        dispatch(getTrains());
+    Swal.fire({
+      title: "Are you sure",
+      text: "You won't be able to revert this",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Delete"
+    }).then ((result) => {
+      if (result.value) {
+        setTimeout(()=>{
+          dispatch(deleteATrain(id));
+          setTimeout(() => {
+            if (isSuccess) {
+              Swal.fire("Deleted", "Your file has been deleted", "success");
+              dispatch(resetState());
+              dispatch(getTrains());
+            }
+          }, 300);          
+        }, 200)
       }
-    }, 300);
+    })
   };
 
   return (
