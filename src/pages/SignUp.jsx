@@ -16,6 +16,9 @@ import {
 import React from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { registerUser } from "../feature/auth/authSlice";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const signupSchema = yup.object({
   name: yup.string().required("Required"),
@@ -28,6 +31,10 @@ const signupSchema = yup.object({
 });
 
 const SignUp = () => {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const paperStyle = { padding: 20, width: 300, margin: "0 auto" };
   const headerStyle = { margin: 0 };
   const avatarStyle = { backgroundColor: "#1bbd7e" };
@@ -39,13 +46,15 @@ const SignUp = () => {
       email: "",
       mobile: "",
       password: "",
+      role: "admin"
     },
     validationSchema: signupSchema,
     onSubmit: (values) => {
-      console.log(values);
-        // console.log(values.email);
-        // console.log(values.password);
-      // dispatch(loginUser(values));
+      // console.log(values);
+      dispatch(registerUser(values));
+      setTimeout(()=>{
+        alert("Admin Created Successfully");
+      }, 1000)
     },
   });
 
