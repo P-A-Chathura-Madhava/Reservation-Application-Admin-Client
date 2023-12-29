@@ -18,13 +18,18 @@ const config = {
 // Attaching the token ends here
 
 const getUsers = async () => {
-  console.log("get all users");
   const response = await axios.get(`${base_url}user/all-users`, config);
   return response.data;
 };
 
+const deleteUser = async (id) => {
+  const response = await axios.delete(`${base_url}user/${id}`, config);
+  return response.data;
+}
+
 const customerService = {
   getUsers,
+  deleteUser
 };
 
 export default customerService;

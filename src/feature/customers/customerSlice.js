@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import customerService from "./customerService";
 
 export const getUsers = createAsyncThunk(
@@ -11,6 +11,21 @@ export const getUsers = createAsyncThunk(
     }
   }
 );
+
+export const deleteACustomer = createAsyncThunk(
+  "customer/delete-customer",
+  async (id, thunkAPI) => {
+    try {
+      return await customerService.deleteUser(id);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+// to stop getting train added message again and again
+export const resetState = createAction("RevertAll");
+
 const initialState = {
   customers: [],
   isError: false,
@@ -38,7 +53,23 @@ export const customerSlice = createSlice({
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;
-      });
+      })
+      .addCase(deleteACustomer.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteACustomer.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.deletedCustomer = action.payload;
+      })
+      .addCase(deleteACustomer.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+      })
+      .addCase(resetState, () => initialState);
   },
 });
 export default customerSlice.reducer;
