@@ -32,6 +32,9 @@ const style = {
 
 const Users = () => {
 
+  const customerstate = useSelector((state) => state.customer.customers);
+  console.log(customerstate);
+
   // for modals
   const [open, setOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
@@ -47,7 +50,6 @@ const Users = () => {
   useEffect(() => {
     dispatch(getUsers());
   }, []);
-  const customerstate = useSelector((state) => state.customer.customers);
 
   const rows = [];
   for (let i = 0; i < customerstate.length; i++) {

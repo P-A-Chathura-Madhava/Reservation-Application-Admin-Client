@@ -7,7 +7,6 @@ import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { createTrain, resetState } from "../feature/train/trainSlice";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 let schema = yup.object().shape({
   number: yup
@@ -44,18 +43,8 @@ const AddTrainForm = ({ closeEvent }) => {
     onSubmit: (values) => {
       dispatch(createTrain(values));
       formik.resetForm();
-      setTimeout(() => {
-        // to stop getting train added successfully message again and again
-        dispatch(resetState());
-      }, 3000);
     },
   });
-
-  const [number, setNumber] = useState("");
-  const [name, setName] = useState("");
-  const [from, setFrom] = useState("");
-  const [to, setTo] = useState("");
-  const [seats, setSeats] = useState("");
 
   return (
     <>
@@ -159,11 +148,7 @@ const AddTrainForm = ({ closeEvent }) => {
           </Grid>
           <Grid item xs={12}>
             <Typography variant="h5" align="center">
-              <Button
-                variant="contained"
-                // onClick={createTrain(number, name, from, to, seats)}
-                type="submit"
-              >
+              <Button variant="contained" type="submit">
                 Submit
               </Button>
             </Typography>

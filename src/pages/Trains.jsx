@@ -16,7 +16,11 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddTrainForm from "./AddTrainForm";
 import EditTrainForm from "./EditTrainForm";
-import { getTrains, resetState, deleteATrain } from "../feature/train/trainSlice";
+import {
+  getTrains,
+  resetState,
+  deleteATrain,
+} from "../feature/train/trainSlice";
 
 const style = {
   position: "absolute",
@@ -41,25 +45,19 @@ const Trains = () => {
     setOpen(false);
     dispatch(getTrains());
   };
-  const handleEditClose = () => setEditOpen(false);
+  const handleEditClose = () => {
+    setEditOpen(false);
+    dispatch(getTrains());
+  };
   // modals end here
 
   const dispatch = useDispatch();
   const trainState = useSelector((state) => state.train.trains);
   const removedTrain = useSelector((state) => state.train);
   const { isSuccess, isError, isLoading, deletedTrain } = removedTrain;
-
   useEffect(() => {
     dispatch(getTrains());
-    // dispatch(resetState());
-  }, [/* trainState */]);
-  // console.log(trainState);
-
-  // useEffect(() => {
-  //   if (isSuccess && deletedTrain) {
-  //     console.log("Train Deleted Successfullly!");
-  //   }
-  // }, [isSuccess, isError, isLoading, deletedTrain]);
+  }, []);
 
   const rows = [];
   for (let i = 0; i < trainState.length; i++) {
@@ -88,15 +86,15 @@ const Trains = () => {
   };
 
   const deleteTrain = (id) => {
-    // alert(id);
     dispatch(deleteATrain(id));
-    setTimeout(()=>{
+    setTimeout(() => {
       if (isSuccess) {
         console.log("Train Deleted");
-        // console.log(deletedTrain);
+        dispatch(resetState());
+        dispatch(getTrains());
       }
-    }, 300)
-  }
+    }, 300);
+  };
 
   return (
     <div>
@@ -205,7 +203,7 @@ const Trains = () => {
                             cursor: "pointer",
                           }}
                           className="curson-pointer"
-                          onClick={()=>deleteTrain(row.id)}
+                          onClick={() => deleteTrain(row.id)}
                         />
                       </Stack>
                     </TableCell>

@@ -5,8 +5,7 @@ import TextField from "@mui/material/TextField";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { resetState, updateTrain } from "../feature/train/trainSlice";
-import { useNavigate } from "react-router-dom";
+import { updateTrain } from "../feature/train/trainSlice";
 
 let schema = yup.object().shape({
   number: yup
@@ -18,10 +17,6 @@ let schema = yup.object().shape({
   to: yup.string().required("Required"),
   seats: yup.number().integer("You must enter a number").required("Required"),
 });
-
-// const createTrain = (number, name, route, trainClass, seats) => {
-//   // console.log(number, name, route, trainClass, seats);
-// };
 
 const EditTrainForm = ({ fid, closeEvent }) => {
   const dispatch = useDispatch();
@@ -48,10 +43,7 @@ const EditTrainForm = ({ fid, closeEvent }) => {
       formik.values.id = fid.id;
       dispatch(updateTrain(values));
       formik.resetForm();
-      setTimeout(() => {
-        // to stop getting train added successfully message again and again
-        dispatch(resetState());
-      }, 3000);
+      closeEvent();
     },
   });
 
@@ -62,12 +54,6 @@ const EditTrainForm = ({ fid, closeEvent }) => {
   const [seats, setSeats] = useState();
 
   useEffect(() => {
-    // console.log("id", fid.id);
-    // console.log("name", fid.name);
-    // console.log("number", fid.number);
-    // console.log("from", fid.from);
-    // console.log("to", fid.to);
-    // console.log("seats", fid.seat);
     setNumber(fid.number);
     setName(fid.name);
     setFrom(fid.from);
@@ -91,15 +77,6 @@ const EditTrainForm = ({ fid, closeEvent }) => {
       <form onSubmit={formik.handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            {/* <TextField
-              id="outlined-basic"
-              label="Number"
-              variant="outlined"
-              size="small"
-              value={number}
-              onChange={(e) => setNumber(e.target.value)}
-              sx={{ minWidth: "100%" }}
-            /> */}
             <TextField
               style={{ marginBottom: "12px" }}
               size="small"
@@ -116,15 +93,6 @@ const EditTrainForm = ({ fid, closeEvent }) => {
             </div>
           </Grid>
           <Grid item xs={12}>
-            {/* <TextField
-              id="outlined-basic"
-              label="Name"
-              variant="outlined"
-              size="small"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              sx={{ minWidth: "100%" }}
-            /> */}
             <TextField
               style={{ marginBottom: "12px" }}
               size="small"
@@ -141,15 +109,6 @@ const EditTrainForm = ({ fid, closeEvent }) => {
             </div>
           </Grid>
           <Grid item xs={12}>
-            {/* <TextField
-              id="outlined-basic"
-              label="From"
-              variant="outlined"
-              size="small"
-              value={from}
-              onChange={(e) => setFrom(e.target.value)}
-              sx={{ minWidth: "100%" }}
-            /> */}
             <TextField
               style={{ marginBottom: "12px" }}
               size="small"
@@ -166,15 +125,6 @@ const EditTrainForm = ({ fid, closeEvent }) => {
             </div>
           </Grid>
           <Grid item xs={12}>
-            {/* <TextField
-              id="outlined-basic"
-              label="To"
-              variant="outlined"
-              size="small"
-              value={to}
-              onChange={(e) => setTo(e.target.value)}
-              sx={{ minWidth: "100%" }}
-            /> */}
             <TextField
               style={{ marginBottom: "12px" }}
               size="small"
@@ -191,15 +141,6 @@ const EditTrainForm = ({ fid, closeEvent }) => {
             </div>
           </Grid>
           <Grid item xs={12}>
-            {/* <TextField
-              id="outlined-basic"
-              label="Seats"
-              variant="outlined"
-              size="small"
-              value={seats}
-              onChange={(e) => setSeats(e.target.value)}
-              sx={{ minWidth: "100%" }}
-            /> */}
             <TextField
               style={{ marginBottom: "12px" }}
               size="small"
@@ -217,11 +158,7 @@ const EditTrainForm = ({ fid, closeEvent }) => {
           </Grid>
           <Grid item xs={12}>
             <Typography variant="h5" align="center">
-              <Button
-                variant="contained"
-                // onClick={createTrain(number, name, from, to, seats)}
-                type="submit"
-              >
+              <Button variant="contained" type="submit">
                 Submit
               </Button>
             </Typography>
