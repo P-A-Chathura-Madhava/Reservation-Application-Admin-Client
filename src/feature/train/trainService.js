@@ -2,8 +2,8 @@ import axios from "axios";
 import { base_url } from "../../utils/base_url";
 
 // Attaching the token
-const getTokenFromLocalStorage = localStorage.getItem("user")
-  ? JSON.parse(localStorage.getItem("user"))
+const getTokenFromLocalStorage = localStorage.getItem("admin")
+  ? JSON.parse(localStorage.getItem("admin"))
   : null;
 
 const config = {
@@ -18,8 +18,10 @@ const config = {
 // Attaching the token ends here
 
 const getTrains = async () => {
+  console.log("get trains");
   // console.log(getTokenFromLocalStorage.token);
   const response = await axios.get(`${base_url}train/`, config);
+  console.log(response);
   return response.data;
 };
 

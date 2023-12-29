@@ -51,7 +51,8 @@ const Trains = () => {
 
   useEffect(() => {
     dispatch(getTrains());
-  }, [trainState]);
+    dispatch(resetState());
+  }, [/* trainState */]);
   // console.log(trainState);
 
   // useEffect(() => {
