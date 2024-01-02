@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "./authService";
+import { toast } from "react-toastify";
 
 // const userDefaultState = {
 //     _id: null,
@@ -25,6 +26,7 @@ const initialState = {
 export const registerUser = createAsyncThunk(
   "auth/register",
   async (userData, thunkAPI) => {
+    // console.log(userData);
     try {
       return await authService.register(userData);
     } catch (error) {
@@ -59,7 +61,8 @@ export const authSlice = createSlice({
       state.isSuccess = true;
       state.createdUser = action.payload;
       if (state.isSuccess) {
-        console.log("Admin created successfully");
+        // console.log("Admin created successfully");
+        toast.success("Admin created successfully");
       }
     })
     .addCase(registerUser.rejected, (state, action) => {
@@ -69,7 +72,8 @@ export const authSlice = createSlice({
       state.user = null;
       state.message = action.error;
       if (state.isSuccess === false) {
-        console.log("Something Went Wrong!");
+        // console.log("Something Went Wrong!");
+        toast.error("Something Went Wrong!");
       }
     })
       .addCase(login.pending, (state) => {

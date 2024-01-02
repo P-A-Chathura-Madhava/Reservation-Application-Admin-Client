@@ -114,7 +114,7 @@ const SignUp = () => {
             {formik.touched.mobile && formik.errors.mobile}
           </div>
           <div style={{height: "10px"}}></div>
-          <FormControl component="fieldset" style={marginTop}>
+          {/* <FormControl component="fieldset" style={marginTop}>
             <FormLabel component="legend" style={{fontSize: 12}}>Gender</FormLabel>
             <RadioGroup
               aria-label="gender"
@@ -135,7 +135,7 @@ const SignUp = () => {
               Male
             </Typography>} />
             </RadioGroup>
-          </FormControl>
+          </FormControl> */}
           <TextField 
           // style={{marginBottom: "12px"}} 
           size="small"
@@ -151,7 +151,10 @@ const SignUp = () => {
             {formik.touched.password && formik.errors.password}
           </div>
           <div style={{height: "10px"}}></div>
-          <TextField style={{marginBottom: "12px"}} size="small" fullWidth label="Confirm Password" />
+          <TextField style={{marginBottom: "12px"}} size="small" 
+          fullWidth 
+          type="password"
+          label="Confirm Password" />
           <FormControlLabel
             style={{marginTop: -20}}
             control={<Checkbox name="checkbox" />}
