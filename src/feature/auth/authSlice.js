@@ -85,12 +85,20 @@ export const authSlice = createSlice({
         state.isSuccess = true;
         state.user = action.payload;
         state.message = "success";
+        if (state.isSuccess) {
+          // console.log("Admin created successfully");
+          toast.success("Admin Logged in successfully");
+        }
       })
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
         state.user = null;
+        if (state.isSuccess === false) {
+          // console.log("Something Went Wrong!");
+          toast.error("Something Went Wrong!");
+        }
     })
 },
 });

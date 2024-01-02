@@ -24,6 +24,7 @@ const register = async (userData) => {
 };
 
 const login = async (user) => {
+  // console.log(user);
   const response = await axios.post(`${base_url}user/admin-login`, user);
   if (response.data) {
     localStorage.setItem("admin", JSON.stringify(response.data));

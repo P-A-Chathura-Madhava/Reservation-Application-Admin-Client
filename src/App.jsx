@@ -10,6 +10,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import { PrivateRoutes } from "./routing/PrivateRoutes";
 import AdminLogin from "./pages/AdminLogin";
 import AdminSignup from "./pages/AdminSignup";
+import {OpenRoutes} from "./routing/OpenRoutes";
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -20,9 +21,9 @@ function App() {
       <Routes>
         {/* <Route path="/" element={<SignInOutContainer />}/> */}
         <Route path="/" element={<AdminLogin />} />
-        <Route path="/signup" element={<AdminSignup />} />
-        <Route path="/reset-password" element={<ResetPassword />}/>
-        <Route path="/forgot-password" element={<ForgotPassword />}/>
+        <Route path="/signup" element={<OpenRoutes><AdminSignup /></OpenRoutes>} />
+        <Route path="/reset-password" element={<PrivateRoutes><ResetPassword /></PrivateRoutes>}/>
+        <Route path="/forgot-password" element={<PrivateRoutes><ForgotPassword /></PrivateRoutes>}/>
         <Route path="/dashboard" element={<PrivateRoutes><Dashboard /></PrivateRoutes>} />
         <Route path="/users" element={<PrivateRoutes><Users /></PrivateRoutes>} />
         <Route path="/trains" element={<PrivateRoutes><Trains /></PrivateRoutes>} />
