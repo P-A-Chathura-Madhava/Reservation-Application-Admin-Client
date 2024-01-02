@@ -18,8 +18,8 @@ import { getTrains } from "../feature/train/trainSlice";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  const trainState = useSelector(state=>state.train.trains);
-  console.log(trainState.length);
+  const trainState = useSelector(state=>state.train);
+  const {isSuccess, trains} = trainState;
 
   useEffect(()=>{
     dispatch(getTrains());
@@ -85,7 +85,7 @@ const Dashboard = () => {
                     </div>
                     <div className="paddingall">
                     <span className="pricetitle">
-                    <CountUp delay={0.6} end={trainState.length} duration={2} />
+                    <CountUp delay={0.6} end={trains.length} duration={2} />
                       </span><br />
                     <span className="pricesubtitle">Total Trains</span>
                     </div>

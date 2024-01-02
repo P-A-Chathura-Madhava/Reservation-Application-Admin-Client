@@ -18,9 +18,9 @@ const config = {
 // Attaching the token ends here
 
 const getTrains = async () => {
-  console.log("get trains");
+  // console.log("get trains");
   // console.log(getTokenFromLocalStorage.token);
-  const response = await axios.get(`${base_url}train/`, config);
+  const response = await axios.get(`${base_url}train/alltrains`);
   // console.log(response);
   return response.data;
 };

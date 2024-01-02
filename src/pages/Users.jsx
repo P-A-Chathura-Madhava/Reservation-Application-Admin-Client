@@ -40,7 +40,6 @@ const Users = () => {
 
   const rows = [];
   for (let i = 0; i < customerstate.length; i++) {
-    if (customerstate[i].role === "user") {
       rows.push({
         key: i + 1,
         id: customerstate[i]._id,
@@ -48,7 +47,6 @@ const Users = () => {
         email: customerstate[i].email,
         mobile: customerstate[i].mobile,
       });
-    }
   }
 
   const deleteUser = (id) => {

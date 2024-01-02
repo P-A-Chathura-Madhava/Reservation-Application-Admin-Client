@@ -23,8 +23,9 @@ const AdminLogin = () => {
   const dispatch = useDispatch();
 
   const authState = useSelector((state) => state.auth);
+  // console.log(authState);
   // // console.log(authState);
-  const { user, isError, isSuccess, isLoading, message } = authState;
+  const { user, isSuccess } = authState;
 
   const formik = useFormik({
     initialValues: {
@@ -39,12 +40,14 @@ const AdminLogin = () => {
   });
 
   useEffect(() => {
+    // console.log(user);
+    // console.log(isSuccess);
     if (!user == null || isSuccess) {
       navigate("/dashboard");
     } else {
       navigate("");
     }
-  }, [user, isError, isSuccess, isLoading]);
+  }, [user, isSuccess]);
 
   return (
     <div className="container d-flex align-items-center justify-content-center">

@@ -14,6 +14,7 @@ import {OpenRoutes} from "./routing/OpenRoutes";
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AccountCreated from "./pages/AccountCreated";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         {/* <Route path="/" element={<SignInOutContainer />}/> */}
         <Route path="/" element={<AdminLogin />} />
         <Route path="/signup" element={<OpenRoutes><AdminSignup /></OpenRoutes>} />
+        <Route path="/account-creation" element={<AccountCreated />} />
         <Route path="/reset-password" element={<PrivateRoutes><ResetPassword /></PrivateRoutes>}/>
         <Route path="/forgot-password" element={<PrivateRoutes><ForgotPassword /></PrivateRoutes>}/>
         <Route path="/dashboard" element={<PrivateRoutes><Dashboard /></PrivateRoutes>} />

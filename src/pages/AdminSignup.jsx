@@ -38,7 +38,8 @@ const Register = () => {
       dispatch(registerUser(values));
       setTimeout(()=>{
         // alert("Admin Created Successfully");
-        navigate("/");
+        navigate("/account-creation");
+        // navigate("/");
       }, 1000)
     },
   });

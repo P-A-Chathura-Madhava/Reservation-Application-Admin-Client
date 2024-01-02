@@ -52,7 +52,7 @@ const Bookings = () => {
 
   const dispatch = useDispatch();
   const reservationState = useSelector(state=>state.reservation.reservations)
-  console.log(reservationState);
+  // console.log(reservationState);
 
   useEffect(()=>{
     dispatch(getReservations());

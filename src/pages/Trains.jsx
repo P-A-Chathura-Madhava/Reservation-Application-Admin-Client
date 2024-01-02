@@ -54,6 +54,7 @@ const Trains = () => {
 
   const dispatch = useDispatch();
   const trainState = useSelector((state) => state.train.trains);
+  // console.log(trainState);
   const removedTrain = useSelector((state) => state.train);
   const { isSuccess, isError, isLoading, deletedTrain } = removedTrain;
   useEffect(() => {
