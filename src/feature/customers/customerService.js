@@ -24,7 +24,8 @@ const getUsers = async () => {
 };
 
 const deleteUser = async (id) => {
-  const response = await axios.delete(`${base_url}user/${id}`, config);
+  // console.log(id);
+  const response = await axios.delete(`${base_url}customer/delete-a-customer/${id}`, config);
   return response.data;
 }
 

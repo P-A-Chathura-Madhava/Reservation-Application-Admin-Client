@@ -5,7 +5,7 @@ import TextField from "@mui/material/TextField";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { updateTrain } from "../feature/train/trainSlice";
+import { getTrains, updateTrain } from "../feature/train/trainSlice";
 
 let schema = yup.object().shape({
   number: yup
@@ -43,6 +43,7 @@ const EditTrainForm = ({ fid, closeEvent }) => {
       formik.values.id = fid.id;
       dispatch(updateTrain(values));
       formik.resetForm();
+      dispatch(getTrains());
       closeEvent();
     },
   });

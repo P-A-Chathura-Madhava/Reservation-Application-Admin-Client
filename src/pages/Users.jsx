@@ -17,6 +17,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddUserForm from "./AddUserForm";
 import EditUserForm from "./EditUserForm";
+import Swal from 'sweetalert2';
 
 const style = {
   position: "absolute",
@@ -32,6 +33,8 @@ const style = {
 
 const Users = () => {
   const customerstate = useSelector((state) => state.customer.customers);
+  const removedCustomer = useSelector((state) => state.train);
+  const { isSuccess, isError, isLoading, deletedTrain } = removedCustomer;
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -50,13 +53,29 @@ const Users = () => {
   }
 
   const deleteUser = (id) => {
-    // console.log(id);
-    dispatch(deleteACustomer(id));
-    setTimeout(()=>{
-      console.log("Customer Deleted Successfully");
-      dispatch(resetState());
-      dispatch(getUsers());
-    }, 300)
+
+    Swal.fire({
+      title: "Are you sure",
+      text: "You won't be able to revert this",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Delete"
+    }).then ((result) => {
+      if (result.value) {
+        setTimeout(()=>{
+          dispatch(deleteACustomer(id));
+          setTimeout(() => {
+            if (isSuccess) {
+              Swal.fire("Deleted", "Your file has been deleted", "success");
+              dispatch(resetState());
+              dispatch(getUsers());
+            }
+          }, 300);          
+        }, 200)
+      }
+    })
   }
 
   return (

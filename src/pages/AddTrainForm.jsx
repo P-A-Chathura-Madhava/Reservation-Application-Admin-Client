@@ -33,11 +33,11 @@ const AddTrainForm = ({ closeEvent }) => {
 
   const formik = useFormik({
     initialValues: {
-      number: 0,
+      number: "",
       name: "",
       from: "",
       to: "",
-      seats: 0,
+      seats: "",
     },
     validationSchema: schema,
     onSubmit: (values) => {
