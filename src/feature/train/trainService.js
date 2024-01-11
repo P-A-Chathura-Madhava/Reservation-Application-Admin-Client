@@ -33,13 +33,13 @@ const createTrain = async (train) => {
 
 const updateTrain = async (newTrain) => {
   // console.log("Working", newTrain);
-  const response = await axios.put(`${base_url}train/${newTrain.id}`, newTrain, config);
+  const response = await axios.put(`${process.env.REACT_APP_BASE_URL}train/${newTrain.id}`, newTrain, config);
   return response.data;
 }
 
 const deleteTrain = async (id) => {
   // console.log("Working", id);
-  const response = await axios.delete(`${base_url}train/${id}`, config);
+  const response = await axios.delete(`${process.env.REACT_APP_BASE_URL}train/${id}`, config);
   return response.data;
 }
 

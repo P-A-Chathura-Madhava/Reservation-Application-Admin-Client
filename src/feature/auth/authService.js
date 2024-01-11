@@ -16,7 +16,7 @@ export const config = {
 
 const register = async (userData) => {
   // console.log(userData);
-  const response = await axios.post(`${base_url}user/register`, userData);
+  const response = await axios.post(`${process.env.REACT_APP_BASE_URL}user/register`, userData);
   if (response.data) {
       // localStorage.setItem("admin", JSON.stringify(response.data));
     return response.data;
@@ -25,7 +25,7 @@ const register = async (userData) => {
 
 const login = async (user) => {
   // console.log(user);
-  const response = await axios.post(`${base_url}user/admin-login`, user);
+  const response = await axios.post(`${process.env.REACT_APP_BASE_URL}user/admin-login`, user);
   if (response.data) {
     localStorage.setItem("admin", JSON.stringify(response.data));
     // console.log(response.data);

@@ -18,14 +18,14 @@ const config = {
 // Attaching the token ends here
 
 const getUsers = async () => {
-  const response = await axios.get(`${base_url}customer/all-customers`);
+  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}customer/all-customers`);
   // console.log(response.data);
   return response.data;
 };
 
 const deleteUser = async (id) => {
   // console.log(id);
-  const response = await axios.delete(`${base_url}customer/delete-a-customer/${id}`, config);
+  const response = await axios.delete(`${process.env.REACT_APP_BASE_URL}customer/delete-a-customer/${id}`, config);
   return response.data;
 }
 
