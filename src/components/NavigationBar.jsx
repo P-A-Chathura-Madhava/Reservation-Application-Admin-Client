@@ -17,7 +17,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { useAppStore } from '../appStore';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 
 const AppBar = styled(MuiAppBar, {
@@ -67,6 +67,8 @@ color: 'inherit',
 
 const NavigationBar = () => {
 
+  const navigate = useNavigate("/");
+
   const getTokenFromLocalStorage = localStorage.getItem("admin")
   ? JSON.parse(localStorage.getItem("admin"))
   : null;
@@ -101,7 +103,8 @@ const NavigationBar = () => {
 
     const handleLogout = () => {
       localStorage.clear();
-      window.location.reload();
+      // window.location.reload();
+      navigate("/");
     };
   
     const menuId = 'primary-search-account-menu';

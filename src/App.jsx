@@ -17,7 +17,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import AccountCreated from "./pages/AccountCreated";
 
 function App() {
-  console.log(process.env.REACT_APP_BASE_URL);
+  // console.log(process.env.REACT_APP_BASE_URL);
   return (
     <BrowserRouter>
       <Routes>
