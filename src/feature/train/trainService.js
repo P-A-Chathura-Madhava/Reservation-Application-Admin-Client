@@ -20,14 +20,14 @@ const config = {
 const getTrains = async () => {
   // console.log("get trains");
   // console.log(getTokenFromLocalStorage.token);
-  const response = await axios.get(`${base_url}train/alltrains`);
+  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}train/alltrains`);
   // console.log(response);
   return response.data;
 };
 
 const createTrain = async (train) => {
   // console.log("Working", train);
-  const response = await axios.post(`${base_url}train/`, train, config);
+  const response = await axios.post(`${process.env.REACT_APP_BASE_URL}train/`, train, config);
   return response.data;
 }
 

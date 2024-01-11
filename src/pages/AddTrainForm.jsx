@@ -42,6 +42,7 @@ const AddTrainForm = ({ closeEvent }) => {
     validationSchema: schema,
     onSubmit: (values) => {
       dispatch(createTrain(values));
+      // console.log(values);
       formik.resetForm();
     },
   });
