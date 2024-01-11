@@ -103,8 +103,8 @@ const NavigationBar = () => {
 
     const handleLogout = () => {
       localStorage.clear();
-      window.location.reload();
-      // navigate("/");
+      // window.location.reload();
+      navigate("/");
     };
   
     const menuId = 'primary-search-account-menu';
