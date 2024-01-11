@@ -91,3 +91,13 @@
 }
 
 /* Confirmation Page ends */
+
+.demo_details {
+    margin: 0;
+    padding: 0;
+}
+
+.demo_details p {
+    margin: 0;
+    padding: 0;
+}

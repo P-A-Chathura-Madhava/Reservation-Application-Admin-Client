@@ -18,7 +18,6 @@ const loginSchema = yup.object({
 });
 
 const AdminLogin = () => {
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -96,6 +95,10 @@ const AdminLogin = () => {
           </form>
           <p className="mt-4">Don't you have an account?</p>
           <a href="/signup">create an account</a>
+          <div className="demo_details">
+            <p>Demo Email : admin@gmail.com</p>
+            <p>Demo Password : admin</p>
+          </div>
         </div>
       </div>
     </div>
