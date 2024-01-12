@@ -7,7 +7,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../feature/auth/authSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const loginSchema = yup.object({
   email: yup
@@ -94,7 +94,7 @@ const AdminLogin = () => {
             </Button>
           </form>
           <p className="mt-4">Don't you have an account?</p>
-          <a href="/signup">create an account</a>
+          <Link to={"/signup"}>create an account</Link>
           <div className="demo_details">
             <p>Demo Email : admin@gmail.com</p>
             <p>Demo Password : admin</p>
