@@ -67,9 +67,30 @@ The admin also plays an important role for this project as the admin is the one 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 #### Some Screenshots of the project:
-- Home Page
-![image]()
+- Login Page
+![image](/projectImages/1.png)
 
+- Dashboard
+![image](/projectImages/2.png)
+![image](/projectImages/6.png)
+
+- Users Page
+![image](/projectImages/3.png)
+
+- Trains Page
+![image](/projectImages/4.png)
+
+- Reservations Page
+![image](/projectImages/5.png)
+
+- Add A Train Modal
+![image](/projectImages/7.png)
+
+- Delete A Train Modal
+![image](/projectImages/9.png)
+
+- Toast Message
+![image](/projectImages/10.png)
 
 <!-- CONTACT -->
 
