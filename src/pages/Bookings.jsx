@@ -63,12 +63,12 @@ const Bookings = () => {
     rows.push({
       key: i + 1,
       id: reservationState[i]._id,
-      firstname: reservationState[i].ticketInfo.firstName,
-      lastname: reservationState[i].ticketInfo.lastName,
-      address: reservationState[i].ticketInfo.address,
-      city: reservationState[i].ticketInfo.city,
-      state: reservationState[i].ticketInfo.state,
-      pincode: reservationState[i].ticketInfo.pincode,
+      firstname: reservationState[i].firstname,
+      lastname: reservationState[i].lastname,
+      address: reservationState[i].address,
+      city: reservationState[i].city,
+      state: reservationState[i].state,
+      pincode: reservationState[i].pincode,
     });
   }
 
